@@ -1,0 +1,50 @@
+Data Dictionary for "weather-anomalies-1964-2013.csv":
+
+    date_str: str 
+        yyyy-mm-dd of the weather anomaly
+    degrees_from_mean: float
+        Degrees in celcius from the mean temperature for the day and location
+    id: str
+        ID of the weather station that recorded the data
+    longitude: float
+        Longitude of the weather anomaly
+    latitude: float
+        Latitude of the weather anomaly
+    max_temp: float
+        Maximum temperature of the recorded weather anomaly
+    min_temp: float
+        Minimum temperature of the recorded weather anomaly
+    station_name: str
+        Name of the weather station that recorded the data
+    tyoe: str
+        Type of weather that was recorded during the weather anomaly
+    serialid: int
+        Sequential integer for each weather anomaly
+
+
+Methods:
+
+    serialid and station_name are dropped as they are either repetetive or unneeded.
+    id drops initial characters and is transformed into integer for correlation matrix.
+    date_str drops year and converts int integer for correlation matrix.
+    type (Weak Hot, Strong Hot, Weak Cold, Strong Cold) is mapped to (0, 1, 2, 3) for correlation matrix.
+
+    RandomForestRegressor used for modeling.
+    Correlation matrix used for analasys.
+
+
+Findings:
+
+    Predictions were on average within a couple thousandths of the original.
+    The lower the degrees_from_mean, the more likely the regressor was to make a correct prediction.
+
+    No cluster analasys.
+
+    Every feature had some importance.
+    I tried to remove some features but every time it would make the predictions worse.
+    Based on the correlation matrix max_temp was the most important feature, while min_temp was second most.
+    This makes a lot of sense as I was trying to predict temperature patterns.
+    Type had the least correlation.
+    I thought this wouldn't be the case because I thought weather type would have a bigger impact.
+    It also suprised me that date and location had little correlation to the anomaly.
+    
