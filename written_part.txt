@@ -30,7 +30,7 @@ Methods:
     type (Weak Hot, Strong Hot, Weak Cold, Strong Cold) is mapped to (0, 1, 2, 3) for correlation matrix.
 
     RandomForestRegressor used for modeling.
-    Correlation matrix used for analasys.
+    Correlation matrix used for analysis.
 
 
 Findings:
@@ -38,13 +38,14 @@ Findings:
     Predictions were on average within a couple thousandths of the original.
     The lower the degrees_from_mean, the more likely the regressor was to make a correct prediction.
 
-    No cluster analasys.
+    No cluster analysis.
 
-    Every feature had some importance.
-    I tried to remove some features but every time it would make the predictions worse.
+    Most features had some importance for predicting degrees_from_mean.
+    Eventually I decided on dropping only id and min_temp as those gave the best accuracy scores at the end.
+    
     Based on the correlation matrix max_temp was the most important feature, while min_temp was second most.
     This makes a lot of sense as I was trying to predict temperature patterns.
-    Type had the least correlation.
-    I thought this wouldn't be the case because I thought weather type would have a bigger impact.
-    It also suprised me that date and location had little correlation to the anomaly.
+    Weirdly though, they had a negative impact on the predictions given by the regressor.
+    In general, having a regressor without min_temp and max_temp was better than one with.
     
+    It also suprised me that date and location had little correlation to the anomaly.
